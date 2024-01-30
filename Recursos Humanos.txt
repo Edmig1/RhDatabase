@@ -1,0 +1,49 @@
+PRAGMA foreign_key = ON;
+
+CREATE TABLE funcionarios(
+	id_funcionario INT PRIMARY KEY,
+	nome VARCHAR(100) NOT NULL,
+	cargo VARCHAR(70) NOT NULL,
+	data_admissao DATE NOT NULL
+);
+
+CREATE TABLE salarios(
+	id_salario INT PRIMARY KEY,
+	id_funcionario INT,
+	valor DECIMAL NOT NULL,
+	datainicio DATE NOT NULL,
+	data_fim DATE NOT NULL,
+	FOREIGN KEY (id_funcionario) REFERENCES funcionarios(id_funcionario)
+);salarios
+
+CREATE TABLE beneficios(
+	id_beneficio INT PRIMARY KEY,
+	id_funcionario INT,
+	tipo VARCHAR(100) NOT NULL,
+	valor DECIMAL NOT NULL,
+	FOREIGN KEY (id_funcionario) REFERENCES funcionarios(id_funcionario)
+);
+
+CREATE TABLE avaliacoes_desempenho(
+	id_avaliacao INT PRIMARY KEY,
+	id_funcionario INT,
+	nota INT NOT NULL,
+	comentarios TEXT,
+	FOREIGN KEY (id_funcionario) REFERENCES funcionarios(id_funcionario)
+);
+
+CREATE TABLE historico_emprego(
+	id_historico INT PRIMARY KEY,
+	id_funcionario INT,
+	data_saida DATE,
+	motivo_saida TEXT,
+	FOREIGN KEY (id_funcionario) REFERENCES funcionarios(id_funcionario)
+);
+
+ALTER TABLE funcionarios ADD COLUMN endereco VARCHAR(100);
+
+ALTER TABLE funcionarios ADD COLUMN email VARCHAR(50);
+
+ALTER TABLE beneficios ADD COLUMN data_inicio DATE;
+
+ALTER TABLE beneficios ADD COLUMN data_fim DATE;
